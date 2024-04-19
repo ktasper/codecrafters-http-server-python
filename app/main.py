@@ -1,21 +1,33 @@
+import argparse
+import os
 import socket
+import sys
 import threading
+
+"""
+Use argpasre to get the directory arg
+CD into it
+Ten try to get the file name from the client
+then try and get the file
+Return the file with a 200 and apllication/octet-stream
+Else If the file doesn't exist, return a 404.
+"""
 
 HOST = "localhost"
 PORT = 4221
 
 def server(server_socket):
-  """Listens for connections and creates threads to handle them."""
+  """Listens for connections and creates threads to pass to the handlers"""
   while True:
-    conn, addr = server_socket.accept()
+    conn, _ = server_socket.accept()
     # Create a new thread to handle the client connection
-    client_thread = threading.Thread(target=handle_client, args=(conn, addr))
+    client_thread = threading.Thread(target=handle_client, args=(conn))
     client_thread.start()
 
 
-def handle_client(conn, addr):
+def handle_client(conn):
   """Handles a single client connection."""
-  print(f"Connected by {addr}")
+  print(f"Connected:")
   with conn:
     try:
       data = conn.recv(1024)
@@ -47,7 +59,7 @@ def handle_client(conn, addr):
       else:
         conn.send("HTTP/1.1 404 Not Found\r\n\r\n".encode())
     except ConnectionError:
-      print(f"Client {addr} disconnected unexpectedly")
+      print(f"Client disconnected unexpectedly")
 
 
 if __name__ == "__main__":
