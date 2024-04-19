@@ -8,8 +8,8 @@ def main():
     with conn:
         print ("connected")
         conn.send(b"HTTP/1.1 200 OK\r\n\r\n")
-    
-
+        data = conn.recv(1024)
+        print (f"Data: {data}")
 
 
 if __name__ == "__main__":
