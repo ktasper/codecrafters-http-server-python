@@ -1,13 +1,18 @@
+import concurrent.futures
 import socket
+import threading
 
 
 def main():
-
     server_socket = socket.create_server(("localhost", 4221), reuse_port=True)
-    conn, addr = server_socket.accept()
+    conn, _ = server_socket.accept()
     with conn:
         print ("connected")
         data = conn.recv(1024)
+        server(conn, data)
+
+
+def server(conn, data):
         data = data.split(b" ")
         print (f"Data: {data}")
         path = data[1]
@@ -35,7 +40,5 @@ def main():
                 conn.send("HTTP/1.1 404 Not Found\r\n\r\n".encode())
         else:
             conn.send("HTTP/1.1 404 Not Found\r\n\r\n".encode())
-
-
 if __name__ == "__main__":
     main()
