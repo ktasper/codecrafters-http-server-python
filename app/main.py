@@ -1,11 +1,21 @@
 import socket
 import threading
 
-max_threads = 5
+
 def main():
     server_socket = socket.create_server(("localhost", 4221), reuse_port=True)
-    for thr in range(0, max_threads):
-        print (thr)
+    thread1 = threading.Thread(target=server(server_socket))
+    thread2 = threading.Thread(target=server(server_socket))
+    thread3 = threading.Thread(target=server(server_socket))
+    # Start the threads
+    thread1.start()
+    thread2.start()
+    thread3.start()
+     
+    # The main thread waits for both threads to finish
+    thread1.join()
+    thread2.join()
+    thread3.join()
 
 
     server(server_socket)
