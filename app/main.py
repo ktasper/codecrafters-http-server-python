@@ -1,9 +1,12 @@
 import socket
 import threading
 
-
+max_threads = 5
 def main():
     server_socket = socket.create_server(("localhost", 4221), reuse_port=True)
+    for thr in range(0, max_threads):
+        print (thr)
+
     server(server_socket)
 
 
