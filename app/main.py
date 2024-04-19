@@ -25,6 +25,13 @@ def main():
 
         elif b"user-agent" in path_vals[1]:
             print("Hit user agent")
+            if b"User-Agent" in data[3]:
+                content = data[4].decode()
+                content = content.split('\r')
+                print (f"content: {content}")
+                conn.send(f"HTTP/1.1 200 Ok\r\nContent-Type: text/plain\r\nContent-Length:{len(content)}\r\n\r\n{content}".encode())
+            else:
+                conn.send("HTTP/1.1 404 Not Found\r\n\r\n".encode())
         else:
             conn.send("HTTP/1.1 404 Not Found\r\n\r\n".encode())
 
