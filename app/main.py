@@ -18,7 +18,7 @@ def main():
             conn.send("HTTP/1.1 200 OK\r\n\r\n".encode())
         elif b"echo" in path_vals[1]:
             content = path_vals[2]
-            conn.send("HTTP/1.1 200 OK\r\n\r\n".encode())
+            print (f"content: {content}")
             conn.send(f"HTTP/1.1 200 Ok\r\nContent-Type: text/plain\r\nContent-Length:{len(content)}\r\n\r\n{content}".encode())
         else:
             conn.send("HTTP/1.1 404 Not Found\r\n\r\n".encode())
