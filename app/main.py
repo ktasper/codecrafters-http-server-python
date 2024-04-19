@@ -4,8 +4,12 @@ import socket
 def main():
 
     server_socket = socket.create_server(("localhost", 4221), reuse_port=True)
-    client = server_socket.accept()[1] # wait for client
-    print (client)
+    conn, addr = server_socket.accept()
+    with conn:
+        print ("connected")
+        conn.send(b"HTTP/1.1 200 OK\r\n\r\n")
+    
+
 
 
 if __name__ == "__main__":
