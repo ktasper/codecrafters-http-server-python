@@ -10,6 +10,8 @@ def main():
         data = conn.recv(1024)
         if b" / " in data:
             conn.send(b"HTTP/1.1 200 OK\r\n\r\n")
+        elif b"/echo" in data:
+            print (f"Data: {data}")
         else:
             conn.send(b"HTTP/1.1 404 Not Found\r\n\r\n")
 
