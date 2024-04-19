@@ -14,7 +14,7 @@ def main():
         print (f"path: {path}")
         path_vals: list[bytes] = path.split(b"/")
         print (f"path vals: {path_vals}")
-        if b" / " in data:
+        if path == b"/":
             conn.send("HTTP/1.1 200 OK\r\n\r\n".encode())
         elif b"echo" in path_vals[1]:
             content = path_vals[2]
