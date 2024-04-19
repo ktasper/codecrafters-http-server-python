@@ -13,8 +13,10 @@ def main():
         elif b"/echo" in data:
             data = data.split(b" ")
             path = data[1]
+            echo_vals: dict[str] = data.split("/")
             print (f"Data: {data}")
             print (f"Path: {path}")
+            print (f"Echo Values: {echo_vals}")
         else:
             conn.send(b"HTTP/1.1 404 Not Found\r\n\r\n")
 
