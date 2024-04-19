@@ -3,21 +3,16 @@ import threading
 
 
 def main():
+    threads = []
+    thread = threading.Thread(target=worker)
+    threads.append(thread)
+    thread.start()
+    thread.join()
+
+def worker():
     server_socket = socket.create_server(("localhost", 4221), reuse_port=True)
-    thread1 = threading.Thread(target=server(server_socket))
-    thread2 = threading.Thread(target=server(server_socket))
-    thread3 = threading.Thread(target=server(server_socket))
-    # Start the threads
-    thread1.start()
-    thread2.start()
-    thread3.start()
-     
-    # The main thread waits for both threads to finish
-    thread1.join()
-    thread2.join()
-    thread3.join()
-
-
+    """Worker thread"""
+    print ("Starting worker thread")
     server(server_socket)
 
 
