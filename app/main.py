@@ -11,6 +11,7 @@ def main():
         if b" / " in data:
             conn.send(b"HTTP/1.1 200 OK\r\n\r\n")
         elif b"/echo" in data:
+            data = data.split(" ")
             print (f"Data: {data}")
         else:
             conn.send(b"HTTP/1.1 404 Not Found\r\n\r\n")
