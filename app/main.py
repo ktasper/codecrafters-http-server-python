@@ -28,6 +28,7 @@ def main():
             if b"User-Agent" in data[3]:
                 content = data[4].decode()
                 content = content.split('\r')
+                content = content[0]
                 print (f"content: {content}")
                 conn.send(f"HTTP/1.1 200 Ok\r\nContent-Type: text/plain\r\nContent-Length:{len(content)}\r\n\r\n{content}".encode())
             else:
