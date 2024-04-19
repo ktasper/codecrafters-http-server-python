@@ -8,17 +8,17 @@ def main():
     with conn:
         print ("connected")
         data = conn.recv(1024)
+        data = data.split(b" ")
+        path = data[1]
+        path_vals: list[bytes] = path.split(b"/")
         if b" / " in data:
-            conn.send(b"HTTP/1.1 200 OK\r\n\r\n")
-        elif b"/echo" in data:
-            data = data.split(b" ")
-            path = data[1]
-            echo_vals: list[bytes] = path.split(b"/")
-            print (f"Data: {data}")
-            print (f"Path: {path}")
-            print (f"Echo Values: {echo_vals}")
+            conn.send("HTTP/1.1 200 OK\r\n\r\n".encode())
+        elif b"echo" in path_vals:
+            content = path_vals[2]
+            conn.send("HTTP/1.1 200 OK\r\n\r\n".encode())
+            conn.send(f"HTTP/1.1 200 Ok\r\nContent-Type: text/plain\r\nContent-Length:{len(content)}\r\n\r\n{content}".encode())
         else:
-            conn.send(b"HTTP/1.1 404 Not Found\r\n\r\n")
+            conn.send("HTTP/1.1 404 Not Found\r\n\r\n".encode())
 
 
 if __name__ == "__main__":
