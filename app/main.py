@@ -7,9 +7,11 @@ def main():
     conn, addr = server_socket.accept()
     with conn:
         print ("connected")
-        conn.send(b"HTTP/1.1 200 OK\r\n\r\n")
         data = conn.recv(1024)
-        print (f"Data: {data}")
+        if b" / " in data:
+            conn.send(b"HTTP/1.1 200 OK\r\n\r\n")
+        else:
+            conn.send(b"HTTP/1.1 404 Not Found\r\n\r\n")
 
 
 if __name__ == "__main__":
