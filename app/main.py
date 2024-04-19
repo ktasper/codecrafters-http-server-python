@@ -9,8 +9,11 @@ def main():
         print ("connected")
         data = conn.recv(1024)
         data = data.split(b" ")
+        print (f"Data: {data}")
         path = data[1]
+        print (f"path: {path}")
         path_vals: list[bytes] = path.split(b"/")
+        print (f"path vals: {path_vals}")
         if b" / " in data:
             conn.send("HTTP/1.1 200 OK\r\n\r\n".encode())
         elif b"echo" in path_vals[1]:
