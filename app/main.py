@@ -13,7 +13,7 @@ def main():
         elif b"/echo" in data:
             data = data.split(b" ")
             path = data[1]
-            echo_vals: dict[str] = data.split("/")
+            echo_vals: list[bytes] = path.split(b"/")
             print (f"Data: {data}")
             print (f"Path: {path}")
             print (f"Echo Values: {echo_vals}")
