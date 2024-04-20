@@ -77,8 +77,7 @@ def handle_client(conn):
       print(f"Client disconnected unexpectedly")
 
 
-
-def main():
+if __name__ == "__main__":
   parser = argparse.ArgumentParser()
   parser.add_argument("-d", "--directory", dest="dir")
   args = parser.parse_args()
@@ -88,7 +87,3 @@ def main():
     print (f"Changed to {args.dir}")
   server_socket = socket.create_server((HOST, PORT), reuse_port=True)
   server(server_socket)
-
-
-if __name__ == "__main__":
-  main()
