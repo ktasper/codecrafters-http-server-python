@@ -6,9 +6,6 @@ import threading
 HOST = "localhost"
 PORT = 4221
 
-
-
-
 def server(server_socket):
   """Listens for connections and creates threads to pass to the handlers"""
   while True:
