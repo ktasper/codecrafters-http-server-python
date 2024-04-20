@@ -1,19 +1,7 @@
 import argparse
 import os
 import socket
-import sys
 import threading
-
-"""
-Use argpasre to get the directory arg
-CD into it
-Ten try to get the file name from the client
-then try and get the file
-Return the file with a 200 and apllication/octet-stream
-Else If the file doesn't exist, return a 404.
-
-os.path.exists(path) -> bool
-"""
 
 HOST = "localhost"
 PORT = 4221
@@ -42,6 +30,12 @@ def handle_client(conn):
       print(f"path: {path}")
       path_vals: list[bytes] = path.split(b"/")
       print(f"path vals: {path_vals}")
+
+      if data[0].decode() == "POST":
+        if b"files" in path_vals[1]:
+          file_name = path_vals[2].decode()
+          print (f"File name: {file_name}")
+
 
       if data[0].decode() == "GET":
         if path == b"/":
