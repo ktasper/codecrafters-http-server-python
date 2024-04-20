@@ -52,7 +52,7 @@ def handle_client(conn):
         conn.send(f"HTTP/1.1 200 Ok\r\nContent-Type: text/plain\r\nContent-Length:{len(content)}\r\n\r\n{content}".encode())
 
       elif b"files" in path_vals[1]:
-        file_name = path_vals[3].decode()
+        file_name = path_vals[2].decode()
         print (f"File name: {file_name}")
         if not os.path.exists(file_name):
           conn.send("HTTP/1.1 404 Not Found\r\n\r\n".encode())
