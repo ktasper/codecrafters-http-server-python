@@ -35,7 +35,7 @@ def handle_client(conn):
         if b"files" in path_vals[1]:
           file_name = path_vals[2].decode()
           print (f"File name: {file_name}")
-          print (f"Conn Data: {conn_data}")
+          print (f"Conn Data: {conn_data.split('\r')}")
 
 
       if data[0].decode() == "GET":
