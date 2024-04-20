@@ -31,7 +31,7 @@ def server(server_socket):
   while True:
     conn, _ = server_socket.accept()
     # Create a new thread to handle the client connection
-    client_thread = threading.Thread(target=handle_client, args=(conn))
+    client_thread = threading.Thread(target=handle_client, args=(conn,))
     client_thread.start()
 
 
@@ -77,7 +77,8 @@ def handle_client(conn):
       print(f"Client disconnected unexpectedly")
 
 
-if __name__ == "__main__":
+
+def main():
   parser = argparse.ArgumentParser()
   parser.add_argument("-d", "--directory", dest="dir")
   args = parser.parse_args()
@@ -87,3 +88,7 @@ if __name__ == "__main__":
     print (f"Changed to {args.dir}")
   server_socket = socket.create_server((HOST, PORT), reuse_port=True)
   server(server_socket)
+
+
+if __name__ == "__main__":
+  main()
