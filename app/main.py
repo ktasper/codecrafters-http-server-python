@@ -39,7 +39,7 @@ def handle_client(conn):
           body = body.decode().strip('\n')
           print (f"BODY: {body[-1]}")
           with open(file_name, 'w') as f:
-            f.write(body.decode())
+            f.write(body[-1])
             conn.send("HTTP/1.1 201 OK\r\n\r\n".encode())
 
 
