@@ -19,11 +19,6 @@ HOST = "localhost"
 PORT = 4221
 
 
-def get_file(file_name):
-  if not os.path.exists(file_name):
-    return False
-  with open(file_name, 'r') as content:
-    return content
 
 
 def server(server_socket):
@@ -57,10 +52,12 @@ def handle_client(conn):
         conn.send(f"HTTP/1.1 200 Ok\r\nContent-Type: text/plain\r\nContent-Length:{len(content)}\r\n\r\n{content}".encode())
 
       elif b"files" in path_vals[1]:
-        print ("IN FILES")
-        content = f"{path_vals[2].decode()}/{path_vals[3].decode()}"
-        print(f"content: {content}")
-        return False
+        file_name = f"{path_vals[2].decode()}/{path_vals[3].decode()}"
+        if not os.path.exists(file_name):
+          conn.send("HTTP/1.1 404 Not Found\r\n\r\n".encode())
+        with open(file_name, 'r') as f:
+          content = f.read()
+          conn.send(f"HTTP/1.1 200 Ok\r\nContent-Type: application/octet-stream\r\nContent-Length:{len(content)}\r\n\r\n{content}".encode())
 
       elif b"user-agent" in path_vals[1]:
         print("Hit user agent")
