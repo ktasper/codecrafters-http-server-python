@@ -23,8 +23,8 @@ def handle_client(conn):
   print(f"Connected:")
   with conn:
     try:
-      data = conn.recv(1024)
-      data = data.split(b" ")
+      conn_data = conn.recv(1024)
+      data = conn_data.split(b" ")
       print(f"Data: {data}")
       path = data[1]
       print(f"path: {path}")
@@ -35,6 +35,7 @@ def handle_client(conn):
         if b"files" in path_vals[1]:
           file_name = path_vals[2].decode()
           print (f"File name: {file_name}")
+          print (f"Conn Data: {conn_data}")
 
 
       if data[0].decode() == "GET":
