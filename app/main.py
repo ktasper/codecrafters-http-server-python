@@ -11,10 +11,20 @@ Ten try to get the file name from the client
 then try and get the file
 Return the file with a 200 and apllication/octet-stream
 Else If the file doesn't exist, return a 404.
+
+os.path.exists(path) -> bool
 """
 
 HOST = "localhost"
 PORT = 4221
+
+
+def get_file(file_name):
+  if not os.path.exists(file_name):
+    return False
+  with open(file_name, 'r') as content:
+    return content
+
 
 def server(server_socket):
   """Listens for connections and creates threads to pass to the handlers"""
@@ -46,6 +56,11 @@ def handle_client(conn):
         print(f"content: {content}")
         conn.send(f"HTTP/1.1 200 Ok\r\nContent-Type: text/plain\r\nContent-Length:{len(content)}\r\n\r\n{content}".encode())
 
+      elif b"files" in path_vals[1]:
+        content = f"{path_vals[2].decode()}/{path_vals[3].decode()}"
+        print(f"content: {content}")
+        return False
+
       elif b"user-agent" in path_vals[1]:
         print("Hit user agent")
         if b"User-Agent" in data[3]:
@@ -62,6 +77,17 @@ def handle_client(conn):
       print(f"Client disconnected unexpectedly")
 
 
-if __name__ == "__main__":
+
+def main():
+  parser = argparse.ArgumentParser()
+  parser.add_argument("-d", "--directory", dest="dir")
+  args = parser.parse_args()
+  print (f"ARGS = {args}")
+  if args.dir:
+    os.chdir(args.dir)
+    print (f"Changed to {args.dir}")
   server_socket = socket.create_server((HOST, PORT), reuse_port=True)
   server(server_socket)
+
+if __name__ == "__main__":
+  main()
