@@ -45,7 +45,7 @@ def handle_client(conn):
                     conn.send("HTTP/1.1 200 OK\r\n\r\n".encode())
 
                 elif b"echo" in path_vals[1]:
-                    content = f"{path_vals[2].decode()}/{path_vals[3].decode()}"
+                    content = path_vals[-1].decode()
                     print(f"content: {content}")
                     conn.send(
                         f"HTTP/1.1 200 Ok\r\nContent-Type: text/plain\r\nContent-Length:{len(content)}\r\n\r\n{content}".encode()

@@ -4,11 +4,6 @@ Given I have passed the initial challenge, I wanted to add `behave` tests and th
 
 
 # Tests
-- In this stage, your task is to start a TCP server on port 4221.
-- Respond with HTTP/1.1 200 OK\r\n\r\n (there are two \r\ns at the end)
-- If the path is /, you'll need to respond with a 200 OK response. Otherwise, you'll need to respond with a 404 Not Found response.
-- The tester will send you a request of the form GET /echo/<a-random-string>.
-    Your program will need to respond with a 200 OK response. The response should have a content type of text/plain, and it should contain the random string as the body.
 - The tester will send you a request of the form GET /user-agent, and it'll include a User-Agent header.
     Your program will need to respond with a 200 OK response. The response should have a content type of text/plain, and it should contain the user agent value as the body.
 - In this stage, your server will need to handle multiple concurrent connections.
