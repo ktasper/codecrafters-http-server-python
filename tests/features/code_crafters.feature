@@ -18,6 +18,6 @@ Feature: Code Crafters WebServer Tutorial
 
 	Scenario: User-agent endpoint returns correctly
 		Given we connect to the server on port "4221"
-		When sending a GET request to "/echo/My_name_is_jeff" with a user agent header of "foobar"
+		When sending a GET request to "/user-agent"
 		Then we get a "200" status code with the content type of "text/plain"
-		And the body contains "foobar"
+		And the body contains the user agent

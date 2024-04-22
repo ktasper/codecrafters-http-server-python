@@ -1,5 +1,6 @@
 import requests
-from behave import Given, Then, When  # type: ignore # pylint: disable=no-name-in-module
+from behave import Given  # type: ignore # pylint: disable=no-name-in-module
+from behave import Then, When
 
 
 @Given('we connect to the server on port "{port}"')
@@ -13,11 +14,6 @@ def step_impl(context, endpoint):  # type: ignore # pylint: disable=function-red
     """Behave"""
     response = requests.get(f"http://localhost:{context.port}{endpoint}", timeout=30)
     context.response = response
-
-
-@When('sending a GET request to "{}" with a user agent header')
-def step_impl(context, endpoint, header_type):  # type: ignore # pylint: disable=function-redefined
-
 
 @Then('we get a "{}" status code')
 def step_impl(context, status_code):  # type: ignore # pylint: disable=function-redefined

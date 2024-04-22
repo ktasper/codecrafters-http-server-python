@@ -6,7 +6,7 @@ authors = ["Karl Webster <19327709+ktasper@users.noreply.github.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.12"
+python = "^3.9"
 black = "^24.4.0"
 behave = "^1.2.6"
 requests = "^2.31.0"
