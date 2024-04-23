@@ -12,7 +12,11 @@ def step_impl(context, port):  # type: ignore # pylint: disable=function-redefin
 @When('sending a GET request to "{}"')
 def step_impl(context, endpoint):  # type: ignore # pylint: disable=function-redefined
     """Behave"""
-    response = requests.get(f"http://localhost:{context.port}{endpoint}", timeout=30)
+    headers = {
+    'User-Agent': 'My-User-Agent',
+    'From': 'youremail@domain.example'
+    }
+    response = requests.get(f'http://localhost:{context.port}{endpoint}', timeout=30, headers=headers)
     context.response = response
 
 @Then('we get a "{}" status code')
@@ -25,10 +29,16 @@ def step_impl(context, status_code):  # type: ignore # pylint: disable=function-
 def step_impl(context, status_code, expected_content_type):  # type: ignore # pylint: disable=function-redefined
     """Behave"""
     assert context.response.status_code == int(status_code)
-    assert context.response.headers["Content-Type"] == expected_content_type
+    assert context.response.headers['Content-Type'] == expected_content_type
 
 
 @Then('the body contains "{expected_body}"')
 def step_impl(context, expected_body):  # type: ignore # pylint: disable=function-redefined
     """Behave"""
     assert context.response.content == expected_body.encode()
+
+
+@Then('the body contains the user agent')
+def step_impl(context):  # type: ignore # pylint: disable=function-redefined
+    """Behave"""
+    assert context.response.content == 'My-User-Agent'.encode()

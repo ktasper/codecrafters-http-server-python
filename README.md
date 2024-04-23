@@ -4,8 +4,6 @@ Given I have passed the initial challenge, I wanted to add `behave` tests and th
 
 
 # Tests
-- The tester will send you a request of the form GET /user-agent, and it'll include a User-Agent header.
-    Your program will need to respond with a 200 OK response. The response should have a content type of text/plain, and it should contain the user agent value as the body.
 - In this stage, your server will need to handle multiple concurrent connections.
     The tester will send you multiple requests at the same time. Your server will need to respond to all of them
 - In this stage, your server will need to return the contents of a file.
