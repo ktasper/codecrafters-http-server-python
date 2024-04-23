@@ -42,3 +42,27 @@ def step_impl(context, expected_body):  # type: ignore # pylint: disable=functio
 def step_impl(context):  # type: ignore # pylint: disable=function-redefined
     """Behave"""
     assert context.response.content == 'My-User-Agent'.encode()
+
+@Given('concurrent connections to the server')
+def step_impl(context):  # type: ignore # pylint: disable=function-redefined
+    raise NotImplementedError('STEP: Given concurrent connections to the server')
+
+
+@Then('we respond to all the concurrent connections')
+def step_impl(context):  # type: ignore # pylint: disable=function-redefined
+    raise NotImplementedError('STEP: Then we respond to all the connections')
+
+
+@Given('a local file called "goblin" exists and has the content on "Foo Bar"')
+def step_impl(context):  # type: ignore # pylint: disable=function-redefined
+    raise NotImplementedError('STEP: Given a local file called "goblin" exists and has the content on "Foo Bar"')
+
+
+@When('sending a POST request to "/files/elf" with the body contents of "HelloWorld!"')
+def step_impl(context):  # type: ignore # pylint: disable=function-redefined
+    raise NotImplementedError('STEP: When sending a POST request to "/files/elf" with the body contents of "HelloWorld!"')
+
+
+@Then('the local file "elf" exists with the contnet of "HelloWorld!')
+def step_impl(context):  # type: ignore # pylint: disable=function-redefined
+    raise NotImplementedError('STEP: Then the local file "elf" exists with the contnet of "HelloWorld!')
