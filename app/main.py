@@ -5,6 +5,11 @@ import threading
 
 HOST: str = "localhost"
 PORT: int = 4221
+MESS = {
+    "200_BASE" : "HTTP/1.1 200 OK\r\n\r\n",
+    "201_BASE" : "HTTP/1.1 201 OK\r\n\r\n",
+    "404_BASE" : "HTTP/1.1 404 Not Found\r\n\r\n"
+}
 
 
 def server(server_socket):
@@ -38,11 +43,11 @@ def handle_client(conn):
                     print(f"BODY: {body}")
                     with open(file_name, "w") as f:
                         f.write(body)
-                        conn.send("HTTP/1.1 201 OK\r\n\r\n".encode())
+                        conn.send(MESS["201_BASE"].encode())
 
             if data[0].decode() == "GET":
                 if path == b"/":
-                    conn.send("HTTP/1.1 200 OK\r\n\r\n".encode())
+                    conn.send(MESS["200_BASE"].encode())
 
                 elif b"echo" in path_vals[1]:
                     content = path_vals[-1].decode()
@@ -55,7 +60,7 @@ def handle_client(conn):
                     file_name = path_vals[2].decode()
                     print(f"File name: {file_name}")
                     if not os.path.exists(file_name):
-                        conn.send("HTTP/1.1 404 Not Found\r\n\r\n".encode())
+                        conn.send(MESS["404_BASE"].encode())
                     with open(file_name, "r") as f:
                         content = f.read()
                         print(f"Content \n: {content}")
@@ -74,9 +79,9 @@ def handle_client(conn):
                             f"HTTP/1.1 200 Ok\r\nContent-Type: text/plain\r\nContent-Length:{len(content)}\r\n\r\n{content}".encode()
                         )
                     else:
-                        conn.send("HTTP/1.1 404 Not Found\r\n\r\n".encode())
+                        conn.send(MESS["404_BASE"].encode())
                 else:
-                    conn.send("HTTP/1.1 404 Not Found\r\n\r\n".encode())
+                    conn.send(MESS["404_BASE"].encode())
         except ConnectionError:
             print("Client disconnected unexpectedly")
 
