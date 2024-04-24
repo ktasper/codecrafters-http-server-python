@@ -23,20 +23,22 @@ Feature: Code Crafters WebServer Tutorial
 		And the body contains the user agent
 
 	Scenario: Concurrent Requests
-		Given concurrent connections to the server
-		Then we respond to all the concurrent connections
+		Given we connect to the server on port "4221"
+		Given concurrent GET requests to "/"
+		Then we respond with "200" to all the requests
 
 	Scenario: GET files endpoint returns correctly
 		Given we connect to the server on port "4221"
-		Given a local file called "goblin" exists and has the content on "Foo Bar"
+		Given we create a local file called "goblin" with the content of "Foo Bar"
 		When sending a GET request to "/files/goblin"
 		Then we get a "200" status code with the content type of "application/octet-stream"
 		And the body contains "Foo Bar"
-		When sending a GET request to "files/troll"
+		Then the local file "goblin" exists with the content of "Foo Bar"
+		When sending a GET request to "/files/troll"
 		Then we get a "404" status code
 
 	Scenario: POST files endpoint returns correctly
 		Given we connect to the server on port "4221"
 		When sending a POST request to "/files/elf" with the body contents of "HelloWorld!"
 		Then we get a "201" status code
-		And the local file "elf" exists with the content of "HelloWorld!
+		Then the local file "elf" exists with the content of "HelloWorld!"
