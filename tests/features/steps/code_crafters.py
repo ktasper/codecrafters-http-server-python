@@ -65,4 +65,4 @@ def step_impl(context):  # type: ignore # pylint: disable=function-redefined
 
 @Then('the local file "elf" exists with the contnet of "HelloWorld!')
 def step_impl(context):  # type: ignore # pylint: disable=function-redefined
-    raise NotImplementedError('STEP: Then the local file "elf" exists with the contnet of "HelloWorld!')
+    raise NotImplementedError('STEP: Then the local file "elf" exists with the content of "HelloWorld!')

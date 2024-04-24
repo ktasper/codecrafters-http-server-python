@@ -39,4 +39,4 @@ Feature: Code Crafters WebServer Tutorial
 		Given we connect to the server on port "4221"
 		When sending a POST request to "/files/elf" with the body contents of "HelloWorld!"
 		Then we get a "201" status code
-		And the local file "elf" exists with the contnet of "HelloWorld!
+		And the local file "elf" exists with the content of "HelloWorld!
